@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Walmart, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\InventoryApi\Api\Data\SourceInterface">
+        <attribute code="instore_pickup_enabled" type="boolean"/>
+        <attribute code="curbside_enabled" type="boolean"/>
+        <attribute code="lead_time" type="int"/>
+        <attribute code="timezone" type="string"/>
+        <attribute code="daylight_saving" type="boolean"/>
+        <attribute code="parking_spots_enabled" type="boolean"/>
+        <attribute code="custom_parking_spot_enabled" type="boolean"/>
+    </extension_attributes>
+</config>

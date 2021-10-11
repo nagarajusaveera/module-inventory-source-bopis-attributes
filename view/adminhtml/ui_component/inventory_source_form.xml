@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="general">
+        <field name="is_pickup_location_active" formElement="checkbox" sortOrder="70">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+            <settings>
+                <dataScope>extension_attributes.is_pickup_location_active</dataScope>
+                <dataType>boolean</dataType>
+                <label translate="true">Use as Pickup Location</label>
+                <notice translate="true">The Default Source can not be used for In-Store Pickup Delivery.</notice>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+    </fieldset>
+    <fieldset name="address">
+        <field name="street" component="Magento_InventoryInStorePickupAdminUi/js/form/element/conditional-required">
+            <settings>
+                <imports>
+                    <link name="required">${ $.provider }:data.general.extension_attributes.is_pickup_location_active</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="city" component="Magento_InventoryInStorePickupAdminUi/js/form/element/conditional-required">
+            <settings>
+                <imports>
+                    <link name="required">${ $.provider }:data.general.extension_attributes.is_pickup_location_active</link>
+                </imports>
+            </settings>
+        </field>
+    </fieldset>
+    <fieldset name="contact_info">
+        <field name="phone" component="Magento_InventoryInStorePickupAdminUi/js/form/element/conditional-required">
+            <settings>
+                <imports>
+                    <link name="required">${ $.provider }:data.general.extension_attributes.is_pickup_location_active</link>
+                </imports>
+            </settings>
+        </field>
+    </fieldset>
+    <fieldset name="pickup_location" sortOrder="100" component="Magento_InventoryInStorePickupAdminUi/js/form/components/fieldset">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Pickup Location</label>
+            <dataScope>general</dataScope>
+            <imports>
+                <link name="visible">${ $.provider }:data.general.extension_attributes.is_pickup_location_active</link>
+            </imports>
+        </settings>
+        <field name="frontend_name" formElement="input">
+            <settings>
+                <dataScope>extension_attributes.frontend_name</dataScope>
+                <dataType>string</dataType>
+                <label translate="true">Frontend Name</label>
+                <tooltip>
+                    <description translate="true">Pickup Location Name visible for the customer on checkout.</description>
+                </tooltip>
+            </settings>
+        </field>
+        <field name="frontend_description" template="ui/form/field" formElement="wysiwyg">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="add_variables" xsi:type="boolean">false</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">true</item>
+                        <item name="add_directives" xsi:type="boolean">true</item>
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <dataScope>extension_attributes.frontend_description</dataScope>
+                <dataType>string</dataType>
+                <label translate="true">Frontend Description</label>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
+        </field>
+        <field name="instore_pickup_enabled" formElement="checkbox" sortOrder="10">
+            <!--argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument-->
+            <settings>
+                <dataScope>extension_attributes.instore_pickup_enabled</dataScope>
+                <dataType>boolean</dataType>
+                <label translate="true">In Store Pickup</label>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="curbside_enabled" formElement="checkbox" sortOrder="20">
+            <!--argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument-->
+            <settings>
+                <dataScope>extension_attributes.curbside_enabled</dataScope>
+                <dataType>boolean</dataType>
+                <label translate="true">Curbside</label>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="lead_time" formElement="input" sortOrder="30">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="notice" xsi:type="string" translate="true">Time in minutes required for picking up of the order</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="validate-digits" xsi:type="boolean">true</rule>
+                </validation>
+                <dataScope>extension_attributes.lead_time</dataScope>
+                <dataType>text</dataType>
+                <label translate="true">Lead Time For Pickup Orders</label>
+            </settings>
+        </field>
+        <field name="timezone" formElement="input" sortOrder="40">
+            <!--argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">some_source</item>
+                    <item name="storeTimeZone" xsi:type="string">string</item>
+                </item>
+            </argument-->
+            <settings>
+                <dataScope>extension_attributes.timezone</dataScope>
+                <dataType>text</dataType>
+                <label translate="true">Timezone</label>
+            </settings>
+        </field>
+        <field name="daylight_saving" formElement="checkbox" sortOrder="50">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+            <settings>
+                <dataScope>extension_attributes.daylight_saving</dataScope>
+                <dataType>boolean</dataType>
+                <label translate="true">Store Follows Daylight Saving Time</label>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <dynamicRows name="dynamic_rows">
+            <settings>
+                <addButtonLabel translate="true">Add Record</addButtonLabel>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <componentType>dynamicRows</componentType>
+            </settings>
+            <container name="record" component="Magento_Ui/js/dynamic-rows/record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                        <item name="componentType" xsi:type="string">container</item>
+                    </item>
+                </argument>
+                <field name="select_day" formElement="select">
+                    <settings>
+                        <dataScope>extension_attributes.select_day</dataScope>
+                        <dataType>text</dataType>
+                        <label translate="true">Day</label>
+                        <dataScope>select_day</dataScope>
+                    </settings>
+                    <formElements>
+                        <select>
+                            <settings>
+                                <options>
+                                    <option name="1" xsi:type="array">
+                                        <item name="value" xsi:type="string">0</item>
+                                        <item name="label" xsi:type="string">Sunday</item>
+                                    </option>
+                                    <option name="2" xsi:type="array">
+                                        <item name="value" xsi:type="string">1</item>
+                                        <item name="label" xsi:type="string">Monday</item>
+                                    </option>
+                                    <option name="3" xsi:type="array">
+                                        <item name="value" xsi:type="string">2</item>
+                                        <item name="label" xsi:type="string">Tuesday</item>
+                                    </option>
+                                    <option name="4" xsi:type="array">
+                                        <item name="value" xsi:type="string">3</item>
+                                        <item name="label" xsi:type="string">Wednesday</item>
+                                    </option>
+                                    <option name="5" xsi:type="array">
+                                        <item name="value" xsi:type="string">4</item>
+                                        <item name="label" xsi:type="string">Thursday</item>
+                                    </option>
+                                    <option name="6" xsi:type="array">
+                                        <item name="value" xsi:type="string">5</item>
+                                        <item name="label" xsi:type="string">Friday</item>
+                                    </option>
+                                    <option name="7" xsi:type="array">
+                                        <item name="value" xsi:type="string">6</item>
+                                        <item name="label" xsi:type="string">Saturday</item>
+                                    </option>
+                                </options>
+                                <caption translate="true">-- Please Select --</caption>
+                            </settings>
+                        </select>
+                    </formElements>
+                </field>
+                <field name="openhour" formElement="input">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="fit" xsi:type="boolean">false</item>
+                            <item name="options" xsi:type="array">
+                                <item name="timeFormat" xsi:type="string">hh:mm</item>
+                                <item name="showsTime" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <!--validation>
+                            <rule name="required-entry" xsi:type="boolean">true</rule>
+                        </validation-->
+                        <dataScope>extension_attributes.openhour</dataScope>
+                        <dataType>text</dataType>
+                        <label>Open Hour</label>
+                    </settings>
+                </field>
+                <field name="closehour" formElement="input">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="fit" xsi:type="boolean">false</item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <!--validation>
+                            <rule name="required-entry" xsi:type="boolean">true</rule>
+                        </validation-->
+                        <dataScope>extension_attributes.closehour</dataScope>
+                        <dataType>text</dataType>
+                        <label>Close Hour</label>
+                    </settings>
+                </field>
+            </container>
+        </dynamicRows>
+        <!--field name="open_hours" formElement="input" sortOrder="60">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Opening Hours</label>
+            </settings>
+        </field-->
+        <field name="parking_spots_enabled" formElement="checkbox" sortOrder="70">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Walmart_InventorySourceBopisAttributes/js/toggleCheckbox</item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+            <settings>
+                <dataScope>extension_attributes.parking_spots_enabled</dataScope>
+                <dataType>boolean</dataType>
+                <label translate="true">Enable Parking Spots</label>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <dynamicRows name="parking_dynamic_rows">
+            <settings>
+                <addButtonLabel translate="true">Add Record</addButtonLabel>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <componentType>parkingDynamicRows</componentType>
+            </settings>
+            <container name="record" component="Magento_Ui/js/dynamic-rows/record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                        <item name="componentType" xsi:type="string">container</item>
+                    </item>
+                </argument>
+                <field name="parking_spot_name" formElement="input">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="fit" xsi:type="boolean">false</item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <dataScope>extension_attributes.parking_spot_name</dataScope>
+                        <dataType>text</dataType>
+                        <label>Name</label>
+                    </settings>
+                </field>
+                <field name="parking_spot_enabled" formElement="checkbox">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="fit" xsi:type="boolean">false</item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <dataScope>extension_attributes.parking_spot_enabled</dataScope>
+                        <dataType>boolean</dataType>
+                        <label>Enabled</label>
+                    </settings>
+                    <formElements>
+                        <checkbox>
+                            <settings>
+                                <valueMap>
+                                    <map name="true" xsi:type="number">0</map>
+                                    <map name="false" xsi:type="number">1</map>
+                                </valueMap>
+                                <prefer>toggle</prefer>
+                            </settings>
+                        </checkbox>
+                    </formElements>
+                </field>
+            </container>
+        </dynamicRows>
+        <field name="custom_parking_spot_enabled" formElement="checkbox" sortOrder="80">
+            <!--argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument-->
+            <settings>
+                <dataScope>extension_attributes.custom_parking_spot_enabled</dataScope>
+                <dataType>boolean</dataType>
+                <label translate="true">Custom Parking Spots</label>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+    </fieldset>
+</form>

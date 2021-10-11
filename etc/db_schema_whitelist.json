@@ -1,0 +1,38 @@
+{
+    "inventory_source": {
+        "column": {
+            "instore_pickup_enabled": true,
+            "curbside_enabled": true,
+            "lead_time": true,
+            "timezone": true,
+            "daylight_saving": true,
+            "parking_spots_enabled": true,
+            "custom_parking_spot_enabled": true
+        }
+    },
+    "inventory_source_opening_hours": {
+        "column": {
+            "source_open_hours_id": true,
+            "source_code": true,
+            "day_of_week": true,
+            "open_hour": true,
+            "close_hour": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "INV_SOURCE_OPENING_HOURS_SOURCE_CODE_INV_SOURCE_SOURCE_CODE": true
+        }
+    },
+    "inventory_source_parking_spot": {
+        "column": {
+            "source_parking_spot_id": true,
+            "source_code": true,
+            "enabled": true,
+            "name": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "INV_SOURCE_PARKING_SPOT_SOURCE_CODE_INV_SOURCE_SOURCE_CODE": true
+        }
+    }
+}

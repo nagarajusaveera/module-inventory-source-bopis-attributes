@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Walmart, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="inventory_source" resource="default" engine="innodb" comment="Inventory Source">
+        <column xsi:type="smallint" name="instore_pickup_enabled" unsigned="true" nullable="false" length="5" comment="Instore pickup enabled"/>
+        <column xsi:type="smallint" name="curbside_enabled" unsigned="true" nullable="false" length="5" comment="Curbside Enabled"/>
+        <column xsi:type="int" name="lead_time" unsigned="true" nullable="false" comment="Curbside Enabled"/>
+        <column xsi:type="varchar" name="timezone" nullable="true" length="255" comment="Timezone"/>
+        <column xsi:type="smallint" name="daylight_saving" unsigned="true" nullable="false" length="5" comment="Daylight saving"/>
+        <column xsi:type="smallint" name="parking_spots_enabled" unsigned="true" nullable="false" length="5" comment="Parking spots enabled"/>
+        <column xsi:type="smallint" name="custom_parking_spot_enabled" unsigned="true" nullable="false" length="5" comment="Custom parking spots enabled"/>
+    </table>
+	<table name="inventory_source_opening_hours" resource="default" engine="innodb" comment="Inventory Source opening hours">
+        <column xsi:type="int" name="source_open_hours_id" nullable="false" identity="true" comment="Source open hours id"/>
+        <column xsi:type="varchar" name="source_code" nullable="false" length="255" comment="Source code"/>
+        <column xsi:type="smallint" name="day_of_week" unsigned="true" nullable="false" comment="Day of week"/>
+        <column xsi:type="varchar" name="open_hour" nullable="true" length="5" comment="Open hour"/>
+        <column xsi:type="varchar" name="close_hour" nullable="true" length="5" comment="Close hour"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="source_open_hours_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="INVENTORY_SOURCE_OPENING_HOURS_SOURCE_CODE" table="inventory_source_opening_hours" column="source_code" referenceTable="inventory_source" referenceColumn="source_code" onDelete="CASCADE"/>
+    </table>
+    <table name="inventory_source_parking_spot" resource="default" engine="innodb" comment="Inventory Source Parking Spot">
+        <column xsi:type="int" name="source_parking_spot_id" nullable="false" identity="true" comment="Source parking spot id"/>
+        <column xsi:type="varchar" name="source_code" nullable="false" length="255" comment="Source code"/>
+        <column xsi:type="smallint" name="enabled" unsigned="true" nullable="false" comment="Enabled"/>
+        <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Name"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="source_parking_spot_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="INVENTORY_SOURCE_PARKING_SPOT_SOURCE_CODE" table="inventory_source_parking_spot" column="source_code" referenceTable="inventory_source" referenceColumn="source_code" onDelete="CASCADE"/>
+    </table>
+</schema>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Walmart, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\InventoryApi\Api\SourceRepositoryInterface">
+        <plugin name="walmart_save_in_store_pickup_links" type="Walmart\InventorySourceBopisAttributes\Plugin\InventoryApi\SourceRepository\SaveInStorePickupPlugin" sortOrder="1" disabled="false" />
+    </type>
+    <preference for="Magento\InventoryInStorePickupApi\Api\Data\PickupLocationInterface" type="Walmart\InventorySourceBopisAttributes\Api\Data\PickupLocationInterface"/>
+    <preference for="Walmart\InventorySourceBopisAttributes\Api\Data\PickupLocationInterface" type="Magento\InventoryInStorePickup\Model\PickupLocation"/>
+    <preference for="Walmart\InventorySourceBopisAttributes\Api\Data\PickupOpeningHoursInterface" type="Walmart\InventorySourceBopisAttributes\Model\PickupOpeningHours"/>
+    <type name="Magento\InventoryInStorePickupApi\Model\Mapper">
+        <arguments>
+            <argument name="map" xsi:type="array">
+                <item name="extension_attributes.instore_pickup_enabled" xsi:type="boolean">true</item>
+                <item name="extension_attributes.curbside_enabled" xsi:type="boolean">true</item>
+                <item name="extension_attributes.lead_time" xsi:type="string">leadtime</item>
+                <item name="extension_attributes.timezone" xsi:type="string">timezone</item>
+                <item name="extension_attributes.daylight_saving" xsi:type="boolean">true</item>
+                <item name="extension_attributes.parking_spots_enabled" xsi:type="boolean">true</item>
+                <item name="extension_attributes.custom_parking_spot_enabled" xsi:type="boolean">true</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
